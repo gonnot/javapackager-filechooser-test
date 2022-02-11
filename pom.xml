@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.gonnot.sample</groupId>
+  <artifactId>javapackager-test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>17</release>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>io.github.fvarrui</groupId>
+        <artifactId>javapackager</artifactId>
+        <version>1.6.2</version>
+        <configuration>
+          <name>SampleAPP</name>
+          <displayName>Sample APP</displayName>
+          <description>Sample project to demonstrate the macOS 10.15 Catalina file access issue</description>
+          <organizationName>gonnot.net</organizationName>
+          <organizationUrl>https://www.factset.com/</organizationUrl>
+          <mainClass>net.gonnot.sample.SampleMain</mainClass>
+          <bundleJre>true</bundleJre>
+          <createZipball>false</createZipball>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build-macos-app</id>
+            <phase>package</phase>
+            <goals>
+              <goal>package</goal>
+            </goals>
+            <configuration>
+              <platform>mac</platform>
+<!--
+              <jrePath>${project.build.directory}/MacOsJRE</jrePath>
+              <jreDirectoryName>PlugIns/jre/Contents/Home</jreDirectoryName>
+              <outputDirectory>${project.build.directory}/MacOsAPP</outputDirectory>
+              <vmArgs>
+                <vmArg>&#45;&#45;add-opens java.desktop/com.apple.eawt=ALL-UNNAMED</vmArg>
+              </vmArgs>
+-->
+              <macConfig>
+<!--                <appId>com.factset.bisam.b-one</appId>-->
+<!--                <icnsFile>src/icon/bone.icns</icnsFile>-->
+                <generatePkg>false</generatePkg>
+                <generateDmg>false</generateDmg>
+                <codesignApp>false</codesignApp>
+              </macConfig>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
